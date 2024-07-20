@@ -32,7 +32,14 @@ export default function Main({ phrases }: MainProps) {
     <main className={mc("main")}>
       <section className={mc("main__controls")}>
         <Button onClick={() => setGuessed([])}>Reset</Button>
-        <Button onClick={() => setPhrase(formatString(randomItem(phrases)))}>Change Puzzle</Button>
+        <Button
+          onClick={() => {
+            setGuessed([]);
+            setPhrase(formatString(randomItem(phrases)));
+          }}
+        >
+          Change Puzzle
+        </Button>
         <Button onClick={() => setGuessed(allLetter)}>Solve</Button>
         <Button aria-pressed={vowelMode} onClick={() => setVowelMode((b) => !b)}>
           Toggle Vowel

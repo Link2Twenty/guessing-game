@@ -20,12 +20,12 @@ export default function LetterGrid({ guesses = [], rows, className }: LetterGrid
           .split("")
           .map((char, x) =>
             char === " " ? (
-              <LetterBox active={false} key={`${x}:${y}`} />
+              <LetterBox active={false} key={`${x}:${y}:${char}:${row}`} />
             ) : (
               <LetterBox
                 active={guesses.includes(char) || new RegExp(/\p{P}/u).test(char)}
                 char={char}
-                key={`${x}:${y}`}
+                key={`${x}:${y}:${char}:${row}`}
               />
             )
           )
