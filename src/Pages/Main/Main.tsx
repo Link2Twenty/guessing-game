@@ -1,12 +1,15 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 
 // Helpers
-import { allLetter, formatString, randomItem } from "../../Helpers/helpers";
+import { allLetter } from "../../Helpers/helpers";
 
 // Components
 import LetterGrid from "../../components/LetterGrid";
 import Keyboard from "../../components/Keyboard";
 import Button from "../../components/Button";
+
+// Context
+import { CategorySelectContext } from "../../hooks/useCategorySelect";
 
 // Styles
 import { mapClassesCurried } from "@blocdigital/useclasslist";
@@ -16,17 +19,20 @@ const mc = mapClassesCurried(maps, true) as (cn: string) => string;
 
 // Types
 export interface MainProps {
-  phrases: string[];
+  onChange: () => void;
 }
 
-export default function Main({ phrases }: MainProps) {
+export default function Main({ onChange }: MainProps) {
+  const { phrase } = useContext(CategorySelectContext) || {};
+
   const [vowelMode, setVowelMode] = useState(false);
   const [guessed, setGuessed] = useState<string[]>([]);
-  const [phrase, setPhrase] = useState(formatString(randomItem(phrases)));
 
   const handleKeyPress = useCallback((char: string) => {
     setGuessed((l) => [...l, char]);
   }, []);
+
+  if (!phrase) return null;
 
   return (
     <main className={mc("main")}>
@@ -35,7 +41,7 @@ export default function Main({ phrases }: MainProps) {
         <Button
           onClick={() => {
             setGuessed([]);
-            setPhrase(formatString(randomItem(phrases)));
+            onChange();
           }}
         >
           Change Puzzle
