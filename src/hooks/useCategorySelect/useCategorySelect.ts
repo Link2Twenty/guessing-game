@@ -1,6 +1,7 @@
-import { createContext } from "preact";
-import { useCallback, useEffect, useState } from "preact/hooks";
-import { formatString, randomItem } from "../../Helpers/helpers";
+import { createContext } from 'preact';
+import { useCallback, useEffect, useState } from 'preact/hooks';
+
+import { formatString, randomItem } from '../../Helpers/helpers';
 
 export interface CategorySelectProps {
   phrase: [string, string, string, string];
@@ -11,11 +12,11 @@ export interface CategorySelectProps {
 }
 
 export default function useCategorySelect(): CategorySelectProps {
-  const [category, setCategory] = useState<CategorySelectProps["category"]>(null);
-  const [title, setTitle] = useState<CategorySelectProps["title"]>("Unknown");
+  const [category, setCategory] = useState<CategorySelectProps['category']>(null);
+  const [title, setTitle] = useState<CategorySelectProps['title']>('Unknown');
 
   const [phrases, setPhrases] = useState<string[]>([]);
-  const [phrase, setPhrase] = useState<CategorySelectProps["phrase"]>(formatString(""));
+  const [phrase, setPhrase] = useState<CategorySelectProps['phrase']>(formatString(''));
 
   // get the list of phrase
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function useCategorySelect(): CategorySelectProps {
 
     const ac = new AbortController();
 
-    fetch(`./api/${category}.json`)
+    fetch(`./api/${category}.json`, { signal: ac.signal })
       .then((res) => res.json())
       .then((json) => {
         setPhrases(json);
@@ -31,16 +32,16 @@ export default function useCategorySelect(): CategorySelectProps {
       })
       .catch((err) => console.warn(err));
 
-    return ac.abort();
+    return () => ac.abort();
   }, [category]);
 
-  const changePhrase = useCallback<CategorySelectProps["changePhrase"]>(() => {
-    if (phrases.length <= 0) return setPhrase(formatString(""));
+  const changePhrase = useCallback<CategorySelectProps['changePhrase']>(() => {
+    if (phrases.length <= 0) return setPhrase(formatString(''));
 
     setPhrase(formatString(randomItem(phrases).toUpperCase()));
   }, [phrases]);
 
-  const changeCategory = useCallback<CategorySelectProps["changeCategory"]>(
+  const changeCategory = useCallback<CategorySelectProps['changeCategory']>(
     (category, title) => {
       setTitle(title);
       setCategory((c) => {
@@ -57,7 +58,7 @@ export default function useCategorySelect(): CategorySelectProps {
     category,
     title,
     changePhrase,
-    changeCategory,
+    changeCategory
   };
 }
 

@@ -1,19 +1,19 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useState } from 'preact/compat';
 
 // Helpers
-import { allLetter } from "../../Helpers/helpers";
+import { allLetter } from '../../Helpers/helpers';
 
 // Components
-import LetterGrid from "../../components/LetterGrid";
-import Keyboard from "../../components/Keyboard";
-import Button from "../../components/Button";
+import LetterGrid from '../../components/LetterGrid';
+import Keyboard from '../../components/Keyboard';
+import Button from '../../components/Button';
 
 // Context
-import { CategorySelectContext } from "../../hooks/useCategorySelect";
+import { CategorySelectContext } from '../../hooks/useCategorySelect';
 
 // Styles
-import { mapClassesCurried } from "@blocdigital/useclasslist";
-import maps from "./Main.module.scss";
+import { mapClassesCurried } from '@blocdigital/useclasslist';
+import maps from './Main.module.scss';
 
 const mc = mapClassesCurried(maps, true) as (cn: string) => string;
 
@@ -35,8 +35,8 @@ export default function Main({ onChange }: MainProps) {
   if (!phrase) return null;
 
   return (
-    <main className={mc("main")}>
-      <section className={mc("main__controls")}>
+    <main className={mc('main')}>
+      <section className={mc('main__controls')}>
         <Button onClick={() => setGuessed([])}>Reset</Button>
         <Button
           onClick={() => {
@@ -51,10 +51,10 @@ export default function Main({ onChange }: MainProps) {
           Toggle Vowel
         </Button>
       </section>
-      <section className={mc("main__gameboard")}>
+      <section className={mc('main__gameboard')}>
         <LetterGrid rows={phrase} guesses={guessed} />
       </section>
-      <section className={mc("main__keyboard")}>
+      <section className={mc('main__keyboard')}>
         <Keyboard vowelMode={vowelMode} usedChar={guessed} onClick={handleKeyPress} />
       </section>
     </main>

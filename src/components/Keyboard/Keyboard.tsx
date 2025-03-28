@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect } from 'preact/hooks';
 
 // Styles
-import useClassList, { mapClassesCurried } from "@blocdigital/useclasslist";
-import maps from "./Keyboard.module.scss";
+import useClassList, { mapClassesCurried } from '@blocdigital/useclasslist';
+import maps from './Keyboard.module.scss';
 
 const mc = mapClassesCurried(maps, true) as (cn: string) => string;
 
@@ -22,11 +22,11 @@ export interface KeyboardProps {
   vowelMode: boolean;
   usedChar: string[];
   onClick: (char: string) => void;
-  className?: HTMLElement["className"];
+  className?: HTMLElement['className'];
 }
 
 export default function Keyboard({ vowelMode, usedChar = [], onClick = () => {}, className }: KeyboardProps) {
-  const classlist = useClassList({ defaultClass: "keyboard", className, maps, string: true }) as string;
+  const classlist = useClassList({ defaultClass: 'keyboard', className, maps, string: true }) as string;
 
   // Listen for keyboard presses too
   useEffect(() => {
@@ -34,50 +34,50 @@ export default function Keyboard({ vowelMode, usedChar = [], onClick = () => {},
       if (isValidKeyPress(key, vowelMode)) onClick(key.toUpperCase());
     };
 
-    window.addEventListener("keypress", onKeyPress);
+    window.addEventListener('keypress', onKeyPress);
 
-    return () => window.removeEventListener("keypress", onKeyPress);
+    return () => window.removeEventListener('keypress', onKeyPress);
   }, [vowelMode, onClick]);
 
   return (
     <div className={classlist}>
-      <div className={mc("keyboard__row")}>
-        {["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"].map((k) => (
+      <div className={mc('keyboard__row')}>
+        {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((k) => (
           <button
             onClick={() => onClick(k)}
             disabled={
               (/^[AEIOU]$/i.test(k) && !vowelMode) || (!/^[AEIOU]$/i.test(k) && vowelMode) || usedChar.includes(k)
             }
             key={k}
-            className={mc("keyboard__key")}
+            className={mc('keyboard__key')}
           >
             {k}
           </button>
         ))}
       </div>
-      <div className={mc("keyboard__row")}>
-        {["A", "S", "D", "F", "G", "H", "J", "K", "L"].map((k) => (
+      <div className={mc('keyboard__row')}>
+        {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map((k) => (
           <button
             onClick={() => onClick(k)}
             disabled={
               (/^[AEIOU]$/i.test(k) && !vowelMode) || (!/^[AEIOU]$/i.test(k) && vowelMode) || usedChar.includes(k)
             }
             key={k}
-            className={mc("keyboard__key")}
+            className={mc('keyboard__key')}
           >
             {k}
           </button>
         ))}
       </div>
-      <div className={mc("keyboard__row")}>
-        {["Z", "X", "C", "V", "B", "N", "M"].map((k) => (
+      <div className={mc('keyboard__row')}>
+        {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map((k) => (
           <button
             onClick={() => onClick(k)}
             disabled={
               (/^[AEIOU]$/i.test(k) && !vowelMode) || (!/^[AEIOU]$/i.test(k) && vowelMode) || usedChar.includes(k)
             }
             key={k}
-            className={mc("keyboard__key")}
+            className={mc('keyboard__key')}
           >
             {k}
           </button>

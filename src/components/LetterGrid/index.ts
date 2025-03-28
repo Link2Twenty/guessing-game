@@ -1,4 +1,4 @@
-import LetterGrid from "./LetterGrid";
+import LetterGrid from './LetterGrid';
 
 export default LetterGrid;
-export type { LetterGridProps } from "./LetterGrid";
+export type { LetterGridProps } from './LetterGrid';
