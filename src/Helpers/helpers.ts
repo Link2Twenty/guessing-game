@@ -17,9 +17,8 @@ export const formatString = (input: string): [string, string, string, string] =>
       currentLength += word.length;
     } else {
       currentLine += 1;
-      if (currentLine >= result.length) {
-        break;
-      }
+      if (currentLine >= result.length) break;
+
       result[currentLine] = word;
       currentLength = word.length;
     }
@@ -57,32 +56,3 @@ export const formatString = (input: string): [string, string, string, string] =>
 };
 
 export const randomItem = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
-
-export const allLetter = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
-];
