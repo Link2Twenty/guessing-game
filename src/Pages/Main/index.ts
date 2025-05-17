@@ -1,4 +1,1 @@
-import Main from './Main';
-
-export default Main;
-export type { MainProps } from './Main';
+export { default, type MainProps } from './Main';

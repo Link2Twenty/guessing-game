@@ -1,4 +1,1 @@
-import CategoryCard from './CategoryCard';
-
-export default CategoryCard;
-export type { CategoryCardProps } from './CategoryCard';
+export { default, type CategoryCardProps } from './CategoryCard';

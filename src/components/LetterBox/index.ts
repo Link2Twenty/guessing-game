@@ -1,4 +1,1 @@
-import LetterBox from './LetterBox';
-
-export default LetterBox;
-export type { LetterBoxProps } from './LetterBox';
+export { default, type LetterBoxProps } from './LetterBox';
