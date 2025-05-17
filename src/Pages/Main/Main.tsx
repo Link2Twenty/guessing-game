@@ -43,7 +43,7 @@ export default function Main({ onChange }: MainProps) {
         >
           Change Puzzle
         </Button>
-        <Button onClick={() => setGuessed(new Set(...allLetter))}>Solve</Button>
+        <Button onClick={() => setGuessed(new Set(allLetter))}>Solve</Button>
         <Button aria-pressed={vowelMode} onClick={() => setVowelMode((b) => !b)}>
           Toggle Vowel
         </Button>
