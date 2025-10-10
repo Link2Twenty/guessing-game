@@ -1,17 +1,13 @@
 import { useEffect } from 'preact/hooks';
 
 // Styles
-import useClassList, { mapClassesCurried } from '@blocdigital/useclasslist';
-import maps from './Keyboard.module.scss';
-
-const mc = mapClassesCurried(maps, true) as (cn: string) => string;
+import styles from './Keyboard.module.scss';
 
 // Types
 export interface KeyboardProps {
   vowelMode: boolean;
   usedChar: Set<string>;
   onClick: (char: string) => void;
-  className?: HTMLElement['className'];
 }
 
 // Constants
@@ -23,9 +19,7 @@ const isValidKeyPress = (key: string, vowelMode: boolean) => {
 
 const KEYBOARD_LAYOUT = ['QWERTYUIOP'.split(''), 'ASDFGHJKL'.split(''), 'ZXCVBNM'.split('')];
 
-export default function Keyboard({ vowelMode, usedChar, onClick = () => {}, className }: KeyboardProps) {
-  const classlist = useClassList({ defaultClass: 'keyboard', className, maps, string: true }) as string;
-
+export default function Keyboard({ vowelMode, usedChar, onClick = () => {} }: KeyboardProps) {
   // Listen for keyboard presses too
   useEffect(() => {
     const onKeyPress = ({ key }: KeyboardEvent) => isValidKeyPress(key, vowelMode) && onClick(key.toUpperCase());
@@ -36,15 +30,15 @@ export default function Keyboard({ vowelMode, usedChar, onClick = () => {}, clas
   }, [vowelMode, onClick]);
 
   return (
-    <div className={classlist}>
+    <div className={styles['keyboard']}>
       {KEYBOARD_LAYOUT.map((row) => (
-        <div key={row} className={mc('keyboard__row')}>
+        <div key={row} className={styles['keyboard__row']}>
           {row.map((k) => (
             <button
               key={k[0]}
               onClick={() => onClick(k)}
               disabled={isVowel(k) !== vowelMode || usedChar.has(k)}
-              className={mc('keyboard__key')}
+              className={styles['keyboard__key']}
             >
               {k}
             </button>

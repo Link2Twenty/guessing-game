@@ -1,20 +1,18 @@
-// Styles
-import useClassList from '@blocdigital/useclasslist';
-import maps from './LetterGrid.module.scss';
+// Components
 import LetterBox from '../LetterBox';
+
+// Styles
+import styles from './LetterGrid.module.scss';
 
 // Types
 export interface LetterGridProps {
   guesses: Set<string>;
   rows: [string, string, string, string];
-  className?: HTMLElement['className'];
 }
 
-export default function LetterGrid({ guesses, rows, className }: LetterGridProps) {
-  const classlist = useClassList({ defaultClass: 'letter-grid', className, maps, string: true }) as string;
-
+export default function LetterGrid({ guesses, rows }: LetterGridProps) {
   return (
-    <div className={classlist}>
+    <div className={styles['letter-grid']}>
       {rows.map((row, y) =>
         row
           .split('')

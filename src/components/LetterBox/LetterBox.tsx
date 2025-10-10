@@ -1,8 +1,5 @@
 // Styles
-import useClassList, { mapClassesCurried } from '@blocdigital/useclasslist';
-import maps from './LetterBox.module.scss';
-
-const mc = mapClassesCurried(maps, true) as (cn: string) => string;
+import styles from './LetterBox.module.scss';
 
 // Types
 export interface LetterBoxProps {
@@ -11,14 +8,12 @@ export interface LetterBoxProps {
   className?: HTMLElement['className'];
 }
 
-export default function LetterBox({ char, active, className }: LetterBoxProps) {
-  const classlist = useClassList({ defaultClass: 'letter-box', className, maps, string: true }) as string;
-
+export default function LetterBox({ char, active }: LetterBoxProps) {
   return (
-    <div className={classlist} aria-hidden={!active}>
-      <div className={mc('letter-box__container')}>
-        {char && <div className={mc('letter-box__character')}>{char}</div>}
-        <div className={mc('letter-box__blank')} />
+    <div className={styles['letter-box']} aria-hidden={!active}>
+      <div className={styles['letter-box__container']}>
+        {char && <div className={styles['letter-box__character']}>{char}</div>}
+        <div className={styles['letter-box__blank']} />
       </div>
     </div>
   );

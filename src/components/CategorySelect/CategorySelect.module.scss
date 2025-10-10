@@ -12,7 +12,7 @@
   &[open] {
     animation: in 225ms ease-in-out forwards;
 
-    &.category-select--close {
+    &[data-open='false'] {
       animation: out 175ms ease-in-out forwards;
     }
   }

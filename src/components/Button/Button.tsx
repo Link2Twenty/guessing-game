@@ -1,17 +1,12 @@
 // Styles
-import useClassList from '@blocdigital/useclasslist';
-import maps from './Button.module.scss';
+import styles from './Button.module.scss';
 
 // Types
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string;
-}
+import type { ButtonHTMLAttributes } from 'preact';
 
-export default function Button({ className, children, ...props }: ButtonProps) {
-  const classlist = useClassList({ defaultClass: 'btn', className, maps, string: true }) as string;
-
+export default function Button({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <button className={classlist} {...props}>
+    <button className={styles['btn']} {...props}>
       {children}
     </button>
   );

@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef } from 'preact/hooks';
+import { useContext, useEffect, useRef } from 'preact/hooks';
 
 // Components
 import CategoryCard from '../CategoryCard';
@@ -7,13 +7,10 @@ import CategoryCard from '../CategoryCard';
 import { CategorySelectContext } from '../../hooks/useCategorySelect';
 
 // Styles
-import useClassList, { mapClassesCurried } from '@blocdigital/useclasslist';
-import maps from './CategorySelect.module.scss';
-
-const mc = mapClassesCurried(maps, true);
+import styles from './CategorySelect.module.scss';
 
 // Types
-import type { JSX } from 'preact';
+import type { TargetedAnimationEvent } from 'preact';
 
 type category = { id: string | number; icon: string; title: string; description: string };
 
@@ -21,18 +18,12 @@ export interface CategorySelectProps {
   open: boolean;
   onClose: () => void;
   categories: category[];
-  className?: HTMLElement['className'];
 }
 
-export default function CategorySelect({ open, categories, className, onClose }: CategorySelectProps) {
+export default function CategorySelect({ open, categories, onClose }: CategorySelectProps) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const { changeCategory } = useContext(CategorySelectContext) || {};
-
-  const classlist = useClassList(
-    { defaultClass: 'category-select', className, maps, string: true },
-    useCallback((_c: string[]) => !open && _c.push('category-select--close'), [open])
-  );
 
   /**
    * Trigger full close of modal
@@ -40,7 +31,7 @@ export default function CategorySelect({ open, categories, className, onClose }:
    * @param event Animation end event
    * @param event.target the dom element triggering the event
    */
-  const handleAnimationEnd = ({ target }: JSX.TargetedAnimationEvent<HTMLDialogElement>) => {
+  const handleAnimationEnd = ({ target }: TargetedAnimationEvent<HTMLDialogElement>) => {
     if (open || target !== modalRef.current) return;
 
     modalRef.current?.close();
@@ -61,11 +52,11 @@ export default function CategorySelect({ open, categories, className, onClose }:
   }, [open]);
 
   return (
-    <dialog ref={modalRef} className={classlist} onAnimationEnd={handleAnimationEnd}>
-      <div tabIndex={-1} className={mc('category-select__container')}>
+    <dialog ref={modalRef} className={styles['category-select']} onAnimationEnd={handleAnimationEnd} data-open={open}>
+      <div tabIndex={-1} className={styles['category-select__container']}>
         <h2>🎯 Category Selection</h2>
         <p>Choose a category and see if you’ve got what it takes to solve the puzzle!</p>
-        <div className={mc('category-select__grid')}>
+        <div className={styles['category-select__grid']}>
           {categories.map(({ id, icon, title, description }) => (
             <CategoryCard key={id} icon={icon} description={description} onClick={() => handleSelection(id, title)}>
               {title}

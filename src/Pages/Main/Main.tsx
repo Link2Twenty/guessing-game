@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'preact/compat';
+import { useCallback, useContext, useState } from 'preact/hooks';
 
 // Components
 import LetterGrid from '../../components/LetterGrid';
@@ -9,10 +9,7 @@ import Button from '../../components/Button';
 import { CategorySelectContext } from '../../hooks/useCategorySelect';
 
 // Styles
-import { mapClassesCurried } from '@blocdigital/useclasslist';
-import maps from './Main.module.scss';
-
-const mc = mapClassesCurried(maps, true) as (cn: string) => string;
+import styles from './Main.module.scss';
 
 // Types
 export interface MainProps {
@@ -32,8 +29,8 @@ export default function Main({ onChange }: MainProps) {
   if (!phrase) return null;
 
   return (
-    <main className={mc('main')}>
-      <section className={mc('main__controls')}>
+    <main className={styles['main']}>
+      <section className={styles['main__controls']}>
         <Button onClick={() => setGuessed(new Set())}>Reset</Button>
         <Button
           onClick={() => {
@@ -48,10 +45,10 @@ export default function Main({ onChange }: MainProps) {
           Toggle Vowel
         </Button>
       </section>
-      <section className={mc('main__gameboard')}>
+      <section className={styles['main__gameboard']}>
         <LetterGrid rows={phrase} guesses={guessed} />
       </section>
-      <section className={mc('main__keyboard')}>
+      <section className={styles['main__keyboard']}>
         <Keyboard vowelMode={vowelMode} usedChar={guessed} onClick={handleKeyPress} />
       </section>
     </main>
